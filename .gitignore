@@ -1,5 +1,6 @@
 boto
 gitconfig
 hgrc
+hgext/
 vim/.netrwhist
 vim/.VimballRecord
