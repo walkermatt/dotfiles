@@ -1,5 +1,5 @@
 " Vundle config for plugins
-source bundles.vim
+source ~/.vim/bundles.vim
 
 " Enable inline vim code as I use it for my todo.txt
 set modelines=1
