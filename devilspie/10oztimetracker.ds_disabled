@@ -1,0 +1,9 @@
+( if
+  ( matches (window_name) "10oz TimeTracker" )
+  ( begin
+    ( println "--[ 10oz TimeTracker ]--" )
+    ( pin )
+    ( skip_tasklist )
+    ( minimize )
+  )
+)

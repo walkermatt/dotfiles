@@ -1,0 +1,6 @@
+style "gvimfix" {
+  # bg[NORMAL] = "#002b36" # this matches gvim Solarized theme 'Normal' bg color.
+  # bg[NORMAL] = "#242424" # this matches gvim Vitamins theme 'Normal' bg color.
+  bg[NORMAL] = "#151515" # this matches gvim JellyBeans theme 'Normal' bg color.
+}
+widget "vim-main-window.*GtkForm" style "gvimfix"

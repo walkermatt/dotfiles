@@ -1,0 +1,9 @@
+(if
+  (matches (window_name) ".*Vim$")
+    (begin
+        ; Window geom now set in .vimrc
+        ;(spawn_sync "sleep 0.1")
+        ;(geometry "850x600+100+100")
+        (focus)
+    )
+)
