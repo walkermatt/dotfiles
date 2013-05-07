@@ -21,7 +21,7 @@ set showcmd
 
 " Allow unused buffers to be hidden with pending edits
 set hidden
-"
+
 " When switching to an already open buffer focus the window if it's already open
 " in if any
 set switchbuf=useopen
@@ -182,6 +182,7 @@ function! ModColorScheme()
     elseif (g:colors_name =~ "jellybeans")
         " More obvious search highlight, cursor and line numbers
         hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
+        hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
         hi Cursor guifg=NONE guibg=#656565 gui=NONE ctermbg=0x241
         hi LineNr guibg=black guifg=grey ctermfg=grey ctermbg=16
         hi VertSplit guifg=#404c41 guibg=#403c41 ctermfg=black ctermbg=black
@@ -217,7 +218,7 @@ set smarttab
 autocmd BufNewFile,BufRead *.vrt set filetype=xml
 
 " Specific tab settings for yaml
-autocmd FileType yaml set softtabstop=2 | set shiftwidth=2
+autocmd FileType yaml setlocal softtabstop=2 | setlocal shiftwidth=2
 
 " Commentary settings (actually a standard Vim setting
 " but it's used by the Commentary plugin)
@@ -276,7 +277,6 @@ set noswapfile
 " Custom mappings
 
 let mapleader = ","
-" let mapleader = "\<space>"
 
 " Swap the go to mark keys, so that ' which is easy to hit
 " goes to the precise line/column when returning to a mark
@@ -607,6 +607,7 @@ command! -nargs=0 Sh silent !mate-terminal &
 " Pretty print the selected xml fragment using the external tidy utility
 vnoremap <leader>fx :!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 nnoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
+" onoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 
 "JSON validate and pretty print
 vnoremap <leader>fj :!python -mjson.tool<cr>
@@ -677,7 +678,8 @@ let MRU_Max_Entries = 1000
 
 " Set up ack.vim options including searching all files
 "let g:ackprg="ack-grep --with-filename --all-types --nocolor --nogroup --column"
-let g:ackprg="ack-grep -H --nocolor --nogroup --column --all-types --ignore-case"
+" let g:ackprg="ack-grep -H --nocolor --nogroup --column --all-types --ignore-case"
+let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-case"
 nnoremap <leader>a :Ack! 
 vnoremap <leader>a :<c-u>Ack! <c-r>=GetSelectedText("very_magic")<cr>
 

@@ -31,11 +31,18 @@ Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-repeat.git'
 Bundle 'tpope/vim-surround.git'
 Bundle 'vim-scripts/L9.git'
+Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'vim-scripts/mru.vim.git'
 Bundle 'vim-scripts/pep8.git'
 Bundle 'walkermatt/lusty.git'
 Bundle 'walkermatt/vim-mapfile.git'
 Bundle 'walkermatt/vimroom.git'
+" Bundle 'paradigm/TextObjectify'
+Bundle 'lambdalisue/nose.vim'
+Bundle 'glts/vim-textobj-comment'
+Bundle 'kana/vim-textobj-entire.git'
+" Bundle 'kbarrette/mediummode'
+Bundle 'yuratomo/w3m.vim'
 
 filetype plugin indent on
 set hidden
