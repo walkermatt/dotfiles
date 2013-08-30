@@ -1,6 +1,8 @@
+bin
 boto
 gitconfig
 hgrc
+ssh
 hgext/
-vim/.netrwhist
 vim/.VimballRecord
+vim/.netrwhist
