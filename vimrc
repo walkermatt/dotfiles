@@ -719,7 +719,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 let g:pep8_map='<F6>'
 
 " The awesome VimRoom plugin for distraction free mode
-let g:vimroom_guibackground="#242424"
+" let g:vimroom_guibackground="#242424"
 let g:vimroom_width=100
 let g:vimroom_sidebar_height=1
 let g:vimroom_scrolloff=1
