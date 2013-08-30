@@ -666,8 +666,14 @@ nnoremap <silent> s :LustyJuggler<cr>
 nnoremap <silent> <a-a> :LustyJugglePrevious<cr>
 nnoremap <silent> a :LustyJugglePrevious<cr>
 
-" Powerline settings
-let g:Powerline_symbols = 'compatible'
+" Airline status line
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_powerline_fonts = 0
+let g:airline_theme = 'luna'
 
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['python'],
