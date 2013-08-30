@@ -239,6 +239,9 @@ autocmd FileType lisp set commentstring=;\ %s
 autocmd FileType upstart set commentstring=#\ %s
 autocmd FileType config set commentstring=#\ %s
 autocmd FileType mapfile set commentstring=#\ %s
+" Wean myself of the old mappings (use 'gc' 'gcc' now)
+nnoremap \\ :echo 'Try gc'<cr>
+nnoremap \\\ :echo 'Try gcc'<cr>
 
 " Default to not showing line endings and tabs but display nice
 " characters when we do with 'set list'
@@ -273,9 +276,6 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
-
-" Resize splits when the window is resized
-" au VimResized * exe "normal! \<c-w>="
 
 " Write swap and backup files to a single folder
 if has("unix")
@@ -455,23 +455,22 @@ inoremap <c-S> <esc>:update<CR>
 autocmd BufNewFile,BufRead scp://* nnoremap <buffer> <c-S> :update<CR><CR>
 
 " Easily escape from normal mode
-inoremap jj <esc>
-inoremap jk <esc>
+" inoremap jj <esc>
+" inoremap jk <esc>
+" inoremap kj <esc>
+" inoremap jl <esc>
 
 " Allow the use of s in visual mode to replace selected
 " and enter insert mode. This mapping is required so that
 " surround.vim does not hijack it
 vnoremap s s
 
-" Easily append to the end of current line in insert mode
-" inoremap aa <Esc>A
-
 " Readline start / end of line in insert mode
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>$
 cnoremap <c-a> <home>
 
-" Ctrl-Delete deletes previous word like in Linux
+" Ctrl-Delete deletes previous word
 inoremap <c-bs> <c-w>
 
 " Delete current buffer without closing the window it's shown in
