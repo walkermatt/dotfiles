@@ -100,6 +100,10 @@ set smartindent
 " Round indent to multiple of 'shiftwidth'
 set shiftround
 
+" Make matching parenthesis very obvious by flicking back to the opening paren
+" when typing the closing
+set showmatch
+
 " Lifted from http://www.vimbits.com/bits/361 to
 " give a more granular undo in insert mode
 " augroup insert_undo
