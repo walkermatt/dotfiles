@@ -191,22 +191,29 @@ function! ModColorScheme()
         hi Cursor guifg=NONE guibg=#656565 gui=NONE ctermbg=0x241
         hi LineNr guibg=black guifg=grey ctermfg=grey ctermbg=16
         hi VertSplit guifg=#404c41 guibg=#403c41 ctermfg=black ctermbg=black
+        " hi Question guifg=#afd700
+        " hi link LustyDir Directory
         " Remove the background of listchar characters
         hi SpecialKey guibg=NONE gui=NONE
     end
     " Highlight matched parenthesis by making them bold and red
-    hi MatchParen cterm=bold ctermbg=NONE ctermfg=NONE guibg=NONE guifg=#a58226
+    hi MatchParen cterm=bold ctermbg=NONE ctermfg=red guibg=NONE guifg=#a58226
 endfunction
 
 " Specify a dark background
 set background=dark
 
 " colorscheme solarized
-colorscheme jellybeans
 " colorscheme badwolf
 " colorscheme desert
 " colorscheme vitamins
-" colorscheme wombat256i
+colorscheme jellybeans
+" colorscheme bclear
+
+" Light colorscheme for use with a projector
+" set background=light | colorscheme zellner | set guifont=inconsolata\ 13 | AirlineTheme light
+" Back to black
+" set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 10 | AirlineTheme luna
 
 " No. of spaces for tab in file
 set tabstop=4
