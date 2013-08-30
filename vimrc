@@ -472,6 +472,7 @@ cnoremap <c-a> <home>
 
 " Ctrl-Delete deletes previous word
 inoremap <c-bs> <c-w>
+cnoremap <c-bs> <c-w>
 
 " Delete current buffer without closing the window it's shown in
 nnoremap <leader>x :Sbd<cr>
