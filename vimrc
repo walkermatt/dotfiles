@@ -675,10 +675,11 @@ let g:airline#extensions#syntastic#enabled = 1
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'luna'
 
-let g:syntastic_mode_map = { 'mode': 'active',
+let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['python'],
                            \ 'passive_filetypes': [] }
 
+let g:syntastic_python_checkers = ['flake8']
 
 " Don't include files in /tmp in the Most Recently Used list
 " so that `It`s all text' and similar browser extension temp files
