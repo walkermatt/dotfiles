@@ -228,6 +228,7 @@ set smarttab
 
 " Define any new filetype associations
 autocmd BufNewFile,BufRead *.vrt set filetype=xml
+autocmd BufNewFile,BufRead *.sld set filetype=xml
 
 " Specific tab settings for yaml
 autocmd FileType yaml setlocal softtabstop=2 | setlocal shiftwidth=2
