@@ -35,6 +35,7 @@ set novb
 
 " Enable the wildmenu which provides enhanced command completion when tab is pressed
 set wildmenu
+set wildmode=full
 set wildignore=*.pyc
 
 " Auto complete
