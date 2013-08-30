@@ -529,11 +529,6 @@ else
     noremap <F11> :VimroomToggle<cr>
 end
 
-" call yankstack#setup()
-
-" nmap \p <Plug>yankstack_substitute_older_paste
-" nmap \n <Plug>yankstack_substitute_newer_paste
-
 " make Y consistent with C and D
 nnoremap Y y$
 
@@ -677,10 +672,7 @@ let g:Powerline_symbols = 'compatible'
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['python'],
                            \ 'passive_filetypes': [] }
-"
-" Disable yank ring for now as it was messing up some other mappings
-" such as yt) (yank until right parenthesis)
-" let g:yankring_enabled = 0
+
 
 " Don't include files in /tmp in the Most Recently Used list
 " so that `It`s all text' and similar browser extension temp files
@@ -817,7 +809,7 @@ function! SingleInstance()
                 call remote_send('GVIM', mycmd)
             endif
             let i = i + 1
-        endwhile 
+        endwhile
 
         call remote_foreground('GVIM')
 
