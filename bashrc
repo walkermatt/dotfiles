@@ -42,3 +42,6 @@ if [ -f "/usr/local/bin/virtualenvwrapper.sh" ] ; then
 fi
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
+
+# Source recently used dir script 'z'
+. ~/.bin/z/z.sh
