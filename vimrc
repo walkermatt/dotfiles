@@ -172,12 +172,6 @@ function! ModColorScheme()
     if (g:colors_name =~ "desert")
         " Background of no text the same as std background
         hi NonText guifg=grey60 guibg=grey20
-    elseif (g:colors_name =~ "vitamins")
-        " Background of no text the same as std background
-        hi NonText guibg=#242424
-        " More subtle search highlight
-        hi Search ctermbg=DarkYellow guibg=#F8DE7E
-        hi SpecialKey guibg=NONE gui=NONE
     elseif (g:colors_name =~ "solarized")
         "hi Normal guibg=#242424
     elseif (g:colors_name =~ "badwolf")
