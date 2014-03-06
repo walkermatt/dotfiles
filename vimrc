@@ -379,8 +379,8 @@ nnoremap ? ?\V
 vnoremap ? ?\V
 onoremap ? ?\V
 
-" Clear search highlighting
-nnoremap <leader><space> :noh<cr>
+" Clear search highlighting, spelling and command line
+nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
 
 " FanfingTastic options
 " let g:fanfingtastic_use_jumplist = 1
