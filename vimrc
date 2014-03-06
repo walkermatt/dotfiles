@@ -694,7 +694,7 @@ let MRU_Max_Entries = 1000
 " Set up ack.vim options including searching all files
 "let g:ackprg="ack-grep --with-filename --all-types --nocolor --nogroup --column"
 " let g:ackprg="ack-grep -H --nocolor --nogroup --column --all-types --ignore-case"
-let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-case --all-types"
+let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-case"
 nnoremap <leader>a :Ack! 
 vnoremap <leader>a :<c-u>Ack! <c-r>=GetSelectedText("very_magic")<cr>
 
