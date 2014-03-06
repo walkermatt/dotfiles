@@ -497,7 +497,7 @@ set pastetoggle=<F2>
 " Show a list of buffers including closed buffers when F5 is pressed, type a buffer number and <Enter> to switch to a buffer
 " nnoremap <F5> :buffers!<CR>:buffer<Space>
 nnoremap <F5> :MRU<cr>
-nnoremap <leader>lv :MRU<cr>
+nnoremap <leader>lm :MRU<cr>
 
 " F6 is used by pep8
 
