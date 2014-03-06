@@ -284,7 +284,7 @@ set noswapfile
 
 " Custom mappings
 
-let mapleader = ","
+map <space> <leader>
 
 " Swap the go to mark keys, so that ' which is easy to hit
 " goes to the precise line/column when returning to a mark
