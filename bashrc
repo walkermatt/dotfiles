@@ -45,3 +45,6 @@ export PIP_RESPECT_VIRTUALENV=true
 
 # Source recently used dir script 'z'
 . ~/.bin/z/z.sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
