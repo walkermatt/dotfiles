@@ -744,6 +744,9 @@ set statusline+=%{&ft}                        " Type (python).
 set statusline+=)
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
+" When encrypting a file use blowfish
+set cryptmethod=blowfish
+
 " Name of default vim session, glob expands the path
 let g:session_file = glob('~/') . 'session.vim'
 let g:session_restored = 0
