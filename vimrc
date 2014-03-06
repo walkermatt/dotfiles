@@ -595,9 +595,17 @@ nnoremap <silent> <leader>cpp :let @+ = expand("%:p")<CR>
 " File name
 nnoremap <silent> <leader>cf :let @+ = expand("%:t")<CR>
 
-" Open a terminal at the current working directory
-command! -nargs=0 Sh silent !mate-terminal &
-" command! -nargs=0 Folder silent !caja . &
+" Open a terminal at the current working directory optionally passing command
+" as args
+function! OpenShell(args)
+    let cmd = "!mate-terminal -x sh -c '"
+    if strlen(a:args)
+        let cmd = cmd . a:args . "; "
+    end
+    let cmd = cmd . "exec bash' &"
+    execute cmd
+endfunction
+command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
 
 " Like '*' (highlight all occurrences of the word under the cursor) but do not
 " move to the next occurrence until 'n' is pressed
