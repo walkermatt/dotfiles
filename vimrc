@@ -233,6 +233,7 @@ autocmd FileType lisp set commentstring=;\ %s
 autocmd FileType upstart set commentstring=#\ %s
 autocmd FileType config set commentstring=#\ %s
 autocmd FileType mapfile set commentstring=#\ %s
+autocmd FileType sql set commentstring=--\ %s
 " Wean myself of the old mappings (use 'gc' 'gcc' now)
 nnoremap \\ :echo 'Try gc'<cr>
 nnoremap \\\ :echo 'Try gcc'<cr>
