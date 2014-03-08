@@ -1,12 +1,8 @@
 # By default make xclip set the main system clipboard
 alias xclip='xclip -selection c'
 
-# Define a Yank Working Directory command
-# I use this all the time to copy the working directory
-# to the system clipboard. The tr call in the middle removes
-# the trailing newline character
-# alias ywd="pwd | tr -d '\n' | xclip"
-
-# Tweak less
+# Tweak less so search is case insensitive by default
 alias less='less --ignore-case'
+
+# Common form of find
 alias f='find -type f -iname '
