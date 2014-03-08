@@ -9,3 +9,4 @@ alias xclip='xclip -selection c'
 
 # Tweak less
 alias less='less --ignore-case'
+alias f='find -type f -iname '
