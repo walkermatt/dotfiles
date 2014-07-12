@@ -129,7 +129,7 @@ command! -nargs=0 W w !sudo tee % >/dev/null
 
 " Make the directory and parents for the current file
 " cnoremap mkdir !mkdir -p %:h
-command! -nargs=0 Mkdir !mkdir -p %:h
+command! -complete=file -nargs=0 Mkdir !mkdir -p %:h
 
 " set shell=/bin/bash
 
@@ -189,6 +189,9 @@ function! ModColorScheme()
         " hi link LustyDir Directory
         " Remove the background of listchar characters
         hi SpecialKey guibg=NONE gui=NONE
+    elseif (g:colors_name =~ "jellyx")
+        hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
+        hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
     end
     " Highlight matched parenthesis by making them bold and red
     hi MatchParen cterm=bold ctermbg=NONE ctermfg=red guibg=NONE guifg=#a58226
@@ -197,17 +200,20 @@ endfunction
 " Specify a dark background
 set background=dark
 
+let g:jellybeans_background_color = "0a0a0a"
+
 " colorscheme solarized
 " colorscheme badwolf
 " colorscheme desert
 " colorscheme vitamins
 colorscheme jellybeans
+" colorscheme jellyx
 " colorscheme bclear
 
 " Light colorscheme for use with a projector
-" set background=light | colorscheme zellner | set guifont=inconsolata\ 13 | AirlineTheme light
+command! Light set background=light | colorscheme zellner | set guifont=inconsolata\ 12 | AirlineTheme light
 " Back to black
-" set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 10 | AirlineTheme luna
+command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 10 | AirlineTheme luna
 
 " No. of spaces for tab in file
 set tabstop=4
@@ -223,6 +229,9 @@ set smarttab
 " Define any new filetype associations
 autocmd BufNewFile,BufRead *.vrt set filetype=xml
 autocmd BufNewFile,BufRead *.sld set filetype=xml
+autocmd BufNewFile,BufRead *.gfs set filetype=xml
+autocmd BufNewFile,BufRead *.gml set filetype=xml
+autocmd BufNewFile,BufRead *.config set filetype=dosini
 
 " Specific tab settings for yaml
 autocmd FileType yaml setlocal softtabstop=2 | setlocal shiftwidth=2
@@ -231,7 +240,7 @@ autocmd FileType yaml setlocal softtabstop=2 | setlocal shiftwidth=2
 " but it's used by the Commentary plugin)
 autocmd FileType lisp set commentstring=;\ %s
 autocmd FileType upstart set commentstring=#\ %s
-autocmd FileType config set commentstring=#\ %s
+autocmd FileType dosini set commentstring=#\ %s
 autocmd FileType mapfile set commentstring=#\ %s
 autocmd FileType sql set commentstring=--\ %s
 " Wean myself of the old mappings (use 'gc' 'gcc' now)
@@ -600,7 +609,11 @@ nnoremap <silent> <leader>cf :let @+ = expand("%:t")<CR>
 function! OpenShell(args)
     let cmd = "!mate-terminal -x sh -c '"
     if strlen(a:args)
-        let cmd = cmd . a:args . "; "
+        if isdirectory(a:args)
+            let cmd = cmd . "cd " . a:args . "; "
+        else
+            let cmd = cmd . a:args . "; "
+        end
     end
     let cmd = cmd . "exec bash' &"
     execute cmd
@@ -683,6 +696,7 @@ let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'passive_filetypes': [] }
 
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 " Don't include files in /tmp in the Most Recently Used list
 " so that `It`s all text' and similar browser extension temp files
@@ -837,13 +851,11 @@ let g:SingleInstance_the_one_and_only = 0
 autocmd VimEnter * call SingleInstance()
 
 " Protect large files from sourcing and other overhead.
-"if !exists("my_auto_commands_loaded")
-"  let my_auto_commands_loaded = 1
-"  let g:LargeFile = 1024 * 1024 * 10
-"  augroup LargeFile
-"    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
-"    augroup END
-"endif
+augroup LargeFile
+    au!
+    let g:LargeFile = 1024 * 1024 * 10
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite | else | set eventignore-=FileType | endif
+augroup END
 
 " Very simple Slime like thing to send selected text to a clisp REPL running
 " in a screen session started with `screen -S vim_repl -t vim_repl`. Uses the r
