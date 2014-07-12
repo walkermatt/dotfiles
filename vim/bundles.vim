@@ -50,7 +50,10 @@ Bundle 'kana/vim-textobj-entire.git'
 " Bundle 'davidhalter/jedi-vim'
 Bundle 'juvenn/mustache.vim'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc'
 Bundle 'ervandew/screen'
+Bundle 'guns/jellyx.vim'
+Bundle 'junegunn/goyo.vim'
 
 filetype plugin indent on
 set hidden
