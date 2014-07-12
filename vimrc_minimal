@@ -1,0 +1,35 @@
+set encoding=utf-8
+set ruler
+set showmode
+set showcmd
+set hidden
+set switchbuf=useopen
+set wildmenu
+set wildmode=full
+set wildignore=*.pyc
+set completeopt=longest,menuone,preview
+set cursorline
+set scrolloff=1
+set number
+set autoindent
+set smartindent
+set shiftround
+set showmatch
+set backspace=indent,eol,start
+set autochdir
+set incsearch
+set gdefault
+set ic
+set smartcase
+set hls
+set wrap
+set linebreak
+set display+=lastline
+set showbreak=↪
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smarttab
+map <space> <leader>
+nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
