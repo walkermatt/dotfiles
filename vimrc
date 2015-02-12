@@ -35,7 +35,7 @@ set novb
 
 " Enable the wildmenu which provides enhanced command completion when tab is pressed
 set wildmenu
-set wildmode=full
+set wildmode=longest,full
 set wildignore=*.pyc
 
 " Auto complete
@@ -76,8 +76,8 @@ set guioptions+=c
 
 " Set the font
 if has("unix")
-    set guifont=inconsolata\ 10
-    " set guifont=ubuntu\mono\ 11
+    " set guifont=inconsolata\ 11
+    set guifont=ubuntu\mono\ 11
     " set guifont=monaco\ 10
     " set guifont=DejaVu\ Sans\ Mono\ 9
 else
@@ -185,8 +185,6 @@ function! ModColorScheme()
         hi Cursor guifg=NONE guibg=#656565 gui=NONE ctermbg=0x241
         hi LineNr guibg=black guifg=grey ctermfg=grey ctermbg=16
         hi VertSplit guifg=#404c41 guibg=#403c41 ctermfg=black ctermbg=black
-        " hi Question guifg=#afd700
-        " hi link LustyDir Directory
         " Remove the background of listchar characters
         hi SpecialKey guibg=NONE gui=NONE
     elseif (g:colors_name =~ "jellyx")
@@ -209,11 +207,12 @@ let g:jellybeans_background_color = "0a0a0a"
 colorscheme jellybeans
 " colorscheme jellyx
 " colorscheme bclear
+" colorscheme zellner
 
 " Light colorscheme for use with a projector
-command! Light set background=light | colorscheme zellner | set guifont=inconsolata\ 12 | AirlineTheme light
+command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 12 | AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 10 | AirlineTheme luna
+command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 11 | AirlineTheme luna
 
 " No. of spaces for tab in file
 set tabstop=4
@@ -479,7 +478,7 @@ inoremap <c-bs> <c-w>
 cnoremap <c-bs> <c-w>
 
 " Delete current buffer without closing the window it's shown in
-nnoremap <leader>x :Sbd<cr>
+" nnoremap <leader>x :Sbd<cr>
 " nnoremap <leader>x :BD<cr>
 " nnoremap <leader>x :bd<cr>
 
@@ -505,8 +504,8 @@ set pastetoggle=<F2>
 
 " Show a list of buffers including closed buffers when F5 is pressed, type a buffer number and <Enter> to switch to a buffer
 " nnoremap <F5> :buffers!<CR>:buffer<Space>
-nnoremap <F5> :MRU<cr>
-nnoremap <leader>lm :MRU<cr>
+" nnoremap <F5> :MRU<cr>
+" nnoremap <leader>lm :MRU<cr>
 
 " F6 is used by pep8
 
@@ -526,11 +525,14 @@ noremap <F9> :!ctags -R<cr>
 " Toggle TagBar
 noremap <F10> :TagbarToggle<cr>
 
+" Goyo settings
+let g:goyo_width = 120
+
 " Toggle fullscreen with F11
 if has("unix")
-    noremap <F11> :!wmctrl -r :ACTIVE: -b toggle,fullscreen<cr><cr>:VimroomToggle
+    noremap <F11> :!wmctrl -r :ACTIVE: -b toggle,fullscreen<cr><cr>:Goyo
 else
-    noremap <F11> :VimroomToggle<cr>
+    noremap <F11> :Goyo<cr>
 end
 
 " make Y consistent with C and D
@@ -607,7 +609,7 @@ nnoremap <silent> <leader>cf :let @+ = expand("%:t")<CR>
 " Open a terminal at the current working directory optionally passing command
 " as args
 function! OpenShell(args)
-    let cmd = "!mate-terminal -x sh -c '"
+    let cmd = "!gnome-terminal -x sh -c '"
     if strlen(a:args)
         if isdirectory(a:args)
             let cmd = cmd . "cd " . a:args . "; "
@@ -672,15 +674,42 @@ vnoremap <leader>ex :!xmlescape<cr>
 let g:ctrlp_working_path_mode = 'c'
 
 " LustyJuggler options
-let g:LustyJugglerAltTabMode = 1
-let g:LustyJugglerShowKeys = 'a'
+" let g:LustyJugglerAltTabMode = 1
+" let g:LustyJugglerShowKeys = 'a'
 
 " LustyExplorer mappings
 " nnoremap <leader>lh :LustyFilesystemExplorer ~<cr>
-nnoremap <silent> <a-s> :LustyJuggler<cr>
-nnoremap <silent> s :LustyJuggler<cr>
-nnoremap <silent> <a-a> :LustyJugglePrevious<cr>
-nnoremap <silent> a :LustyJugglePrevious<cr>
+" nnoremap <silent> <a-s> :LustyJuggler<cr>
+" nnoremap <silent> s :LustyJuggler<cr>
+" nnoremap <silent> <a-a> :LustyJugglePrevious<cr>
+" nnoremap <silent> a :LustyJugglePrevious<cr>
+
+" Unite
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+nnoremap <silent> <a-s> :Unite -no-split -buffer-name=buffer buffer<cr>
+nnoremap <silent> <leader>lb :Unite -no-split -buffer-name=buffer -start-insert buffer<cr>
+nnoremap <silent> <leader>lr :UniteWithBufferDir -no-split -buffer-name=file -start-insert file<cr>
+nnoremap <silent> <leader>lm :Unite -no-split -buffer-name=file -start-insert file_mru<cr>
+nnoremap <leader>a :Unite -no-quit -buffer-name=grep grep:<cr>
+nnoremap <leader>f :Unite -no-quit -buffer-name=grep find:<cr>
+
+" Alternative file (avoiding issues when alt file has been closed)
+nnoremap <silent> <a-a> :Unite -no-split -buffer-name=buffer -quick-match buffer<cr>a
+" nnoremap <silent> <a-a> <c-^>
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+    imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+    map <buffer> <ESC> <Plug>(unite_all_exit)
+endfunction
+
+" For ack.
+if executable('ack-grep')
+  let g:unite_source_grep_command = 'ack-grep'
+  let g:unite_source_grep_default_opts = '-H --nocolor --nogroup --column --ignore-case'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 
 " Airline status line
 let g:airline_left_sep = ''
@@ -690,6 +719,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'luna'
+" let g:airline_theme = 'light'
 
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['python'],
@@ -708,9 +738,9 @@ let MRU_Max_Entries = 1000
 " Set up ack.vim options including searching all files
 "let g:ackprg="ack-grep --with-filename --all-types --nocolor --nogroup --column"
 " let g:ackprg="ack-grep -H --nocolor --nogroup --column --all-types --ignore-case"
-let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-case"
-nnoremap <leader>a :Ack! 
-vnoremap <leader>a :<c-u>Ack! <c-r>=GetSelectedText("very_magic")<cr>
+" let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-case"
+" nnoremap <leader>a :Ack! 
+" vnoremap <leader>a :<c-u>Ack! <c-r>=GetSelectedText("very_magic")<cr>
 
 " Auto Complete options
 " let g:acp_enableAtStartup = 0
@@ -732,14 +762,11 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 " Pattern to hide dotfiles in built-in file browser
 " let g:netrw_list_hide= '^\..*'
 
+" Software capslock
+imap <C-L> <Plug>CapsLockToggle
+
 " Python pep8 options
 let g:pep8_map='<F6>'
-
-" The awesome VimRoom plugin for distraction free mode
-" let g:vimroom_guibackground="#242424"
-let g:vimroom_width=100
-let g:vimroom_sidebar_height=1
-let g:vimroom_scrolloff=1
 
 " Status line
 set laststatus=2
@@ -804,51 +831,6 @@ autocmd VimEnter * nested call RestoreSession()
 if has("gui_running")
     autocmd GUIEnter * winpos 40 40 | set lines=40 columns=120
 endif
-
-" Merge a second instance of Vim into the first one
-function! SingleInstance()
-
-    if !has("gui_running")
-        return
-    elseif g:SingleInstance_the_one_and_only !=? 1
-        return
-    elseif has("mac")
-        return
-    endif
-
-    if v:servername !=? "GVIM"
-
-        " Loop through *all* buffers and add them to the main window before
-        " quitting
-
-        let i = 1
-        while i <= bufnr('$')
-            if bufexists(i)
-                " get opened file name
-                "let myfile = expand("%:p")
-                let myfile = fnamemodify(bufname(i), ":p")
-                " reverse backslashes
-                let myfile = substitute(myfile, '\\', '/', 'g')
-                " escape
-                let myfile = escape(myfile, ' ')
-                " edit current file, maintain this position
-                let mycmd = "<C-\\><C-n>:edit +" . line('.') . ' ' . myfile . '<CR>'
-                call remote_send('GVIM', mycmd)
-            endif
-            let i = i + 1
-        endwhile
-
-        call remote_foreground('GVIM')
-
-        " Quit
-        qall!
-
-    end
-
-endfunction
-
-let g:SingleInstance_the_one_and_only = 0
-autocmd VimEnter * call SingleInstance()
 
 " Protect large files from sourcing and other overhead.
 augroup LargeFile
