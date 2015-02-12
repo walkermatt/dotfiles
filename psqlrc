@@ -1,4 +1,4 @@
-\set HISTSIZE 2000
+\set HISTSIZE 20000
 \timing
 \encoding unicode
-\x
+\x auto
