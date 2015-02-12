@@ -33,3 +33,19 @@ set expandtab
 set smarttab
 map <space> <leader>
 nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
+" Status line
+set laststatus=2
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+set statusline+=\    " Space.
+set statusline+=%=   " Right align.
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
