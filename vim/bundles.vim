@@ -50,6 +50,7 @@ Bundle 'junegunn/goyo.vim'
 Bundle 'takac/vim-hardtime'
 Bundle 'kopischke/unite-spell-suggest'
 Bundle 'tpope/vim-capslock'
+Bundle 'jpalardy/vim-slime'
 
 filetype plugin indent on
 set hidden

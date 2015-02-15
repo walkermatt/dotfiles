@@ -711,6 +711,11 @@ if executable('ack-grep')
   let g:unite_source_grep_recursive_opt = ''
 endif
 
+" vim-slime
+let g:slime_no_mappings = 1
+" Use same mapping as fireplace for other stuff like SQL
+autocmd FileType * if index(['clj', 'cljs'], &ft) < 0 | nmap cp <Plug>SlimeMotionSend
+
 " Airline status line
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
