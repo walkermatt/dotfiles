@@ -51,6 +51,7 @@ Bundle 'takac/vim-hardtime'
 Bundle 'kopischke/unite-spell-suggest'
 Bundle 'tpope/vim-capslock'
 Bundle 'jpalardy/vim-slime'
+Bundle 'exu/pgsql.vim'
 
 filetype plugin indent on
 set hidden
