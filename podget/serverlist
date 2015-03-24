@@ -8,19 +8,19 @@
 #       have any spaces in it.
 # Find more servers at: http://www.ipodder.org/directory/4/podcasts
 http://www.metalheadz.co.uk/podcast/podcast2010.xml Podcasts Metalheadz
-http://picklemonkey.net/flipper/convert.php?feed=http://itunes.apple.com/us/podcast/solid-steel/id88395834# Podcasts Solid Steel
+http://ninjatune.net/solidsteel/rss.xml Podcasts Solid Steel
 http://podcast.hospitalrecords.com/HospitalRecordsPodcast.xml Podcasts Hospital Records
 http://www.datatransmission.co.uk/podcast.xml Podcasts Data Transmission
-http://feeds.feedburner.com/ExpansionPodcast Podcasts Expansion Broadcast
-http://picklemonkey.net/flipper/convert.php?feed=http://itunes.apple.com/podcast/juno-minimal-podcast/id297332013?i=48856671# Podcasts Juno Minimal
+# http://feeds.feedburner.com/ExpansionPodcast Podcasts Expansion Broadcast
+http://mp3.juno.co.uk/podcasts/junominimal.xml Podcasts Juno Minimal
 http://feeds2.feedburner.com/JohnBPodcasts Podcasts John B
 http://www.shogunaudio.co.uk/Podcast/podcast.xml Podcasts Shogun Audio
 http://feeds.feedburner.com/deepfocus?format=xml Podcasts Deep Focus
-http://picklemonkey.net/flipper/convert.php?feed=http://itunes.apple.com/podcast/rte-dave-clarkes-white-noise/id505578675# Podcasts WHITENOISE
-http://picklemonkey.net/flipper/convert.php?feed=http://itunes.apple.com/us/podcast/solid-steel/id88395834 Podcasts Solid Steel
-http://picklemonkey.net/flipper/convert.php?feed=http://itunes.apple.com/en/podcast/resident-advisor/id129673441 Podcasts ResidentAdvisor
+http://www.rte.ie/radio1/podcast/podcast_whitenoise.xml Podcasts WHITENOISE
+http://www.residentadvisor.net/xml/podcast.xml Podcasts ResidentAdvisor
 http://feeds.feedburner.com/ukfmusic Podcasts UKF
 http://rinse.fm/podcasts/ Podcasts RinseFM
-http://picklemonkey.net/flipper/convert.php?feed=http://itunes.apple.com/us/podcast/thinkrelevance-the-podcast/id498067022 Podcasts Cognicast
+http://itunes.apple.com/us/podcast/thinkrelevance-the-podcast/id498067022 Podcasts Cognicast
 http://www.functionalgeekery.com/feed/podcast/ Podcasts FunctionalGeekery
 http://qgispodcast.libsyn.com/rss Podcasts QGIS
+http://feeds.podtrac.com/9dPm65vdpLL1 Podcasts HanselMinutes
