@@ -6,3 +6,6 @@ alias less='less --ignore-case'
 
 # Common form of find
 alias f='find -type f -iname '
+
+# Generate a password
+alias pass="shuf -n3 /usr/share/dict/words | tr -d '\n'"
