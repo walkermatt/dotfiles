@@ -124,11 +124,9 @@ set autochdir
 " set autowrite
 
 " Sudo to write from Steve Losh
-" cnoremap w!! w !sudo tee % >/dev/null
 command! -nargs=0 W w !sudo tee % >/dev/null
 
 " Make the directory and parents for the current file
-" cnoremap mkdir !mkdir -p %:h
 command! -complete=file -nargs=0 Mkdir !mkdir -p %:h
 
 " set shell=/bin/bash
@@ -163,8 +161,6 @@ set wrap
 set linebreak
 set display+=lastline
 set showbreak=↪
-" set textwidth=80
-" set formatoptions=qrn1
 
 au ColorScheme * call ModColorScheme()
 
@@ -203,10 +199,10 @@ let g:jellybeans_background_color = "0a0a0a"
 " colorscheme solarized
 " colorscheme badwolf
 " colorscheme desert
-" colorscheme vitamins
 colorscheme jellybeans
 " colorscheme jellyx
 " colorscheme bclear
+" colorscheme github
 " colorscheme zellner
 
 " Light colorscheme for use with a projector
@@ -230,6 +226,7 @@ autocmd BufNewFile,BufRead *.vrt set filetype=xml
 autocmd BufNewFile,BufRead *.sld set filetype=xml
 autocmd BufNewFile,BufRead *.gfs set filetype=xml
 autocmd BufNewFile,BufRead *.gml set filetype=xml
+autocmd BufNewFile,BufRead *.qgs set filetype=xml
 autocmd BufNewFile,BufRead *.config set filetype=dosini
 
 " Specific tab settings for yaml
@@ -299,13 +296,6 @@ map <space> <leader>
 nnoremap ' `
 nnoremap ` '
 
-"nnoremap <leader>A Ea
-"nnoremap <leader>a ea
-
-" For this to work it needs to know if it's already within a set of parenthesis, at the moment it doesn't
-" as an example try: args = docopt(foo, (var))
-" onoremap i( :<c-u>normal! %vi(<cr>
-
 " Shortcut for the substitute command
 " from current line to the end of the buffer
 " To warp around once you've reached the bottom
@@ -316,10 +306,7 @@ nnoremap <leader>s :,$s/
 " Shortcut for substitute command in visual mode
 vnoremap <leader>s y:,$s/<c-r>=GetSelectedText("search")<cr>/
 
-" cnoremap wrap  |1,''-&&
-
 " Find selected text
-" vnoremap <leader>/ y:/<c-r>=GetSelectedText("search")<cr>
 vnoremap <leader>/ /\V<c-r>=GetSelectedText("search")<cr>
 
 function! GetSelectedText(escape_for) range
@@ -331,48 +318,6 @@ function! GetSelectedText(escape_for) range
         let string = escape(string, '^$.*\~[]()%')
     endif
     return string
-endfunction
-
-" Select all text in a buffer with ctrl-a
-" nnoremap <c-a> ggVG<cr>
-
-" Pre-populate the command line with :Command-T /current/directory/
-"nnoremap <leader>t :CommandT <c-r>=expand("%:p:h") . "/" <cr>
-
-" Make changing directory to the current buffer easy
-noremap <leader>cd :cd %:p:h
-
-" Set up mappings in regular buffers to
-" all using Enter and Shift-Enter to insert
-" blank lines and ensure they are cleared
-" for special buffers that need to use Enter
-augroup enter_insert
-    au!
-    au BufEnter * call AboveBelow()
-    au BufWinEnter * call AboveBelow()
-    au CmdwinEnter * call AboveBelow()
-augroup END
-
-function! AboveBelow()
-    let below = 'o<Esc>cc<Esc>'
-    let above = 'O<Esc>cc<Esc>'
-    " echom '&buftype: ' . &buftype
-    if(&buftype == '')
-        " Regular file buffer
-        " Not using <buffer> as it breaks the
-        " LustyJuggler
-        execute 'nnoremap <enter> ' . below
-        execute 'nnoremap <s-enter> ' . above
-    else
-        " Special buffer such as QuickFix, NERDTree
-        " LocationList etc.
-        if (maparg('<enter>', 'n') == below)
-            execute 'nunmap <enter>'
-        endif
-        if (maparg('<s-enter>', 'n') == above)
-            execute 'nunmap <s-enter>'
-        endif
-    endif
 endfunction
 
 " Folding
@@ -387,54 +332,11 @@ nnoremap ? ?\V
 vnoremap ? ?\V
 onoremap ? ?\V
 
-" Clear search highlighting, spelling and command line
-nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
-
-" FanfingTastic options
-" let g:fanfingtastic_use_jumplist = 1
-
-" Remap ; and , commands so they also work after t and T
-" Only do the remapping for normal and visual mode, not operator pending
-" Use @= instead of :call to prevent leaving visual mode
-" nnoremap <silent> ; @=FixCommaAndSemicolon(";")<CR>
-" nnoremap <silent> , @=FixCommaAndSemicolon(",")<CR>
-" vnoremap <silent> ; @=FixCommaAndSemicolon(";")<CR>
-" vnoremap <silent> , @=FixCommaAndSemicolon(",")<CR>
-
-" function! FixCommaAndSemicolon(command)
-"    let s:pos1 = getpos(".")
-"    execute "normal! " . a:command
-"    let s:pos2 = getpos(".")
-"    if s:pos1 == s:pos2
-"       execute "normal! 2" . a:command
-"    endif
-"    return ""
-" endfunction
-
-" Open this file in a split for editing
-" nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
 " Make the down and up keys take wrapped lines in to account
 nnoremap j gj
 nnoremap gj j
 nnoremap k gk
 nnoremap gk k
-
-" Slightly more consistent word and WORD movement just like ge
-" nnoremap gw b
-" nnoremap gW B
-
-" I really struggle with ^ for some reason, and this is similar to g_
-" nnoremap g0 ^
-
-" readline movements in normal mode, already available in command mode
-" nnoremap <c-e> $
-
-" nnoremap _ $
-" nnoremap _ g_
-" vnoremap _ $h
-" vnoremap _ g_
-" noremap - ^
 
 " Disable the arrow keys :)
 inoremap  <up>     <NOP>
@@ -457,12 +359,6 @@ inoremap <c-S> <esc>:update<CR>
 " Variation for remote editing, which dismisses the 'press ENTER...' prompt
 autocmd BufNewFile,BufRead scp://* nnoremap <buffer> <c-S> :update<CR><CR>
 
-" Easily escape from normal mode
-" inoremap jj <esc>
-" inoremap jk <esc>
-" inoremap kj <esc>
-" inoremap jl <esc>
-
 " Allow the use of s in visual mode to replace selected
 " and enter insert mode. This mapping is required so that
 " surround.vim does not hijack it
@@ -477,50 +373,26 @@ cnoremap <c-a> <home>
 inoremap <c-bs> <c-w>
 cnoremap <c-bs> <c-w>
 
-" Delete current buffer without closing the window it's shown in
-" nnoremap <leader>x :Sbd<cr>
-" nnoremap <leader>x :BD<cr>
-" nnoremap <leader>x :bd<cr>
-
-" Delete a buffer *and* close the window
-nnoremap <leader>xx :bdelete<cr>
-
-" Shortcut to open a new vertical split and switch to it ([w]indow [o]pen)
-" nnoremap <leader>wo <C-w>v<C-w>l
-" nnoremap <leader>wo <C-w>v
-nnoremap <leader>wo :echo 'Try Ctrl-W v'<cr>
-
-" Close the current window ([w]indow [x])
-" nnoremap <leader>wx :close<cr>
-nnoremap <leader>wx :echo 'Try Ctrl-W c'<cr>
-
 " Map F1 to escape as :help is more useful
 noremap <F1> <esc>
 
 " Pressing F2 will toggle paste mode that allows you to paste text and preserve indentation
 set pastetoggle=<F2>
+"
+" Python pep8 options
+let g:pep8_map='<F6>'
 
-" F3 is used by NERDTree
-
-" Show a list of buffers including closed buffers when F5 is pressed, type a buffer number and <Enter> to switch to a buffer
-" nnoremap <F5> :buffers!<CR>:buffer<Space>
-" nnoremap <F5> :MRU<cr>
-" nnoremap <leader>lm :MRU<cr>
-
-" F6 is used by pep8
+" Clear search highlighting, spelling and command line
+nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
 
 " Toggle spell check with F7
 noremap <F7> :set spell!<cr>
+
 " Enable spell check when using next spell command
 nnoremap z= :set spell<cr>z=
+vnoremap z= :set spell<cr>z=
 nnoremap ]s :set spell<cr>]s
 nnoremap [s :set spell<cr>[s
-
-" Allow access to c-v for special characters
-"inoremap <F8> <c-v>
-
-" Build tags for the cwd and down, jump to a definition with ctrl-]
-noremap <F9> :!ctags -R<cr>
 
 " Toggle TagBar
 noremap <F10> :TagbarToggle<cr>
@@ -570,16 +442,6 @@ vnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>P "+P
 
-" Conventional copy and paste?
-" inoremap <c-v> <esc>"+Pa
-" inoremap <c-v> <c-r>+
-
-" This works pretty well the only downside is that auto indetation
-" gets removed.
-" May be use :echo matchstr(@+, '\n') != '' to find if there are new lines to
-" determine if set paste is required?
-" inoremap <c-v> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
-
 inoremap <c-v> <c-r><c-p>+
 
 " When using Ctrl-V to paste in the command-line escape
@@ -622,14 +484,6 @@ function! OpenShell(args)
 endfunction
 command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
 
-" Like '*' (highlight all occurrences of the word under the cursor) but do not
-" move to the next occurrence until 'n' is pressed
-" nnoremap * :let @/='\<<c-r>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
-" nnoremap * mz*N`z
-
-" Format JavaScript
-"nnoremap <silent> <leader>fjs :call g:Jsbeautify()<cr>
-
 " Pretty print the selected xml fragment using the external tidy utility
 vnoremap <leader>fx :!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 nnoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
@@ -646,43 +500,6 @@ vnoremap <leader>eu :!urlencode<cr>
 " XML escape and unescape
 vnoremap <leader>ux :!xmlescape --unescape<cr>
 vnoremap <leader>ex :!xmlescape<cr>
-
-" EasyMotion options and mappings
-" let g:EasyMotion_do_mapping = 0
-
-"nnoremap <silent> f      :call EasyMotion#F(0, 0)<CR>
-"onoremap <silent> f      :call EasyMotion#F(0, 0)<CR>
-"vnoremap <silent> f :<C-U>call EasyMotion#F(1, 0)<CR>
-
-" nnoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
-" onoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
-" vnoremap <silent> <Leader>f :<C-U>call EasyMotion#F(1, 0)<CR>
-
-" nnoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
-" onoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
-" vnoremap <silent> <Leader>F :<C-U>call EasyMotion#F(1, 1)<CR>
-
-" nnoremap <silent> <Leader>t      :call EasyMotion#T(0, 0)<CR>
-" onoremap <silent> <Leader>t      :call EasyMotion#T(0, 0)<CR>
-" vnoremap <silent> <Leader>t :<C-U>call EasyMotion#T(1, 0)<CR>
-
-" nnoremap <silent> <Leader>T      :call EasyMotion#T(0, 1)<CR>
-" onoremap <silent> <Leader>T      :call EasyMotion#T(0, 1)<CR>
-" vnoremap <silent> <Leader>T :<C-U>call EasyMotion#T(1, 1)<CR>
-
-" CtrlP
-let g:ctrlp_working_path_mode = 'c'
-
-" LustyJuggler options
-" let g:LustyJugglerAltTabMode = 1
-" let g:LustyJugglerShowKeys = 'a'
-
-" LustyExplorer mappings
-" nnoremap <leader>lh :LustyFilesystemExplorer ~<cr>
-" nnoremap <silent> <a-s> :LustyJuggler<cr>
-" nnoremap <silent> s :LustyJuggler<cr>
-" nnoremap <silent> <a-a> :LustyJugglePrevious<cr>
-" nnoremap <silent> a :LustyJugglePrevious<cr>
 
 " Unite
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -733,60 +550,26 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501'
 
-" Don't include files in /tmp in the Most Recently Used list
-" so that `It`s all text' and similar browser extension temp files
-" don't get recorded
-let MRU_Exclude_Files = '^/tmp/.*'
-
-let MRU_Max_Entries = 1000
-
-" Set up ack.vim options including searching all files
-"let g:ackprg="ack-grep --with-filename --all-types --nocolor --nogroup --column"
-" let g:ackprg="ack-grep -H --nocolor --nogroup --column --all-types --ignore-case"
-" let g:ackprg="ack-grep -H --nocolor --nogroup --column --ignore-case"
-" nnoremap <leader>a :Ack! 
-" vnoremap <leader>a :<c-u>Ack! <c-r>=GetSelectedText("very_magic")<cr>
-
-" Auto Complete options
-" let g:acp_enableAtStartup = 0
-" let g:acp_ignorecaseOption = 0
-" let g:acp_behaviorKeywordLength = 4
-
 " Use the awesome python auto complete function
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-" NERDTree mappings and options
-" noremap  <F3> :NERDTreeFind<cr>
-" inoremap <F3> <esc>:NERDTreeToggle<cr>
-
-" let NERDTreeMapHelp='<F1>'
-" let NERDTreeMinimalUI=1
-" let NERDTreeQuitOnOpen=1
-
-" noremap  <F3> :45vsplit<cr>:e.<cr>
-" Pattern to hide dotfiles in built-in file browser
-" let g:netrw_list_hide= '^\..*'
 
 " Software capslock
 imap <C-L> <Plug>CapsLockToggle
 
-" Python pep8 options
-let g:pep8_map='<F6>'
-
 " Status line
 set laststatus=2
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
-set statusline+=\    " Space.
-set statusline+=%=   " Right align.
+set statusline=%f " Path.
+set statusline+=%m " Modified flag.
+set statusline+=%r " Readonly flag.
+set statusline+=%w " Preview window flag.
+set statusline+=\ " Space.
+set statusline+=%= " Right align.
 set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=%{&ff} " Format (unix/DOS).
 set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=%{strlen(&fenc)?&fenc:&enc} " Encoding (utf-8).
 set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
+set statusline+=%{&ft} " Type (python).
 set statusline+=)
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
@@ -843,11 +626,3 @@ augroup LargeFile
     let g:LargeFile = 1024 * 1024 * 10
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite | else | set eventignore-=FileType | endif
 augroup END
-
-" Very simple Slime like thing to send selected text to a clisp REPL running
-" in a screen session started with `screen -S vim_repl -t vim_repl`. Uses the r
-" register which is fine by me as I hardly ever use more than a few registers
-function! SendToScreen(text)
-    echo system("screen -S vim_repl -p vim_repl -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
-endfunction
-vnoremap <C-c><C-c> "ry :call SendToScreen(@r)<CR>
