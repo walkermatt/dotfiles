@@ -257,7 +257,7 @@ augroup trailing
 augroup END
 
 " Store a generous history of previous commands
-set history=2000
+set history=20000
 
 " Enable mouse in normal and visual only (enabling in insert
 " is a pain in the ass when on the laptop due to catching
@@ -593,7 +593,7 @@ function! SaveSession()
 endfunction
 
 function! SaveSessionToFile(session_file)
-    set sessionoptions=buffers,curdir
+    set sessionoptions=buffers,curdir,folds
     execute 'mksession! ' . a:session_file
 endfunction
 
