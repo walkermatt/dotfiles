@@ -550,6 +550,7 @@ endif
 let g:slime_no_mappings = 1
 " Use same mapping as fireplace for other stuff like SQL
 autocmd FileType * if index(['clj', 'cljs'], &ft) < 0 | nmap cp <Plug>SlimeMotionSend
+autocmd FileType * if index(['clj', 'cljs'], &ft) < 0 | nmap cpp <Plug>SlimeLineSend
 
 " Airline status line
 let g:airline_left_sep = ''
