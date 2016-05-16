@@ -519,6 +519,7 @@ vnoremap <leader>ux :!xmlescape --unescape<cr>
 vnoremap <leader>ex :!xmlescape<cr>
 
 " Unite
+let g:unite_data_directory = expand("~/.cache/unite")
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 nnoremap <silent> <a-s> :Unite -no-split -buffer-name=buffer buffer<cr>
