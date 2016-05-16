@@ -238,9 +238,10 @@ autocmd BufNewFile,BufRead *.gfs set filetype=xml
 autocmd BufNewFile,BufRead *.gml set filetype=xml
 autocmd BufNewFile,BufRead *.qgs set filetype=xml
 autocmd BufNewFile,BufRead *.config set filetype=dosini
+autocmd BufNewFile,BufRead *.cfg set filetype=dosini
 
-" Specific tab settings for yaml
-autocmd FileType yaml setlocal softtabstop=2 | setlocal shiftwidth=2
+" Specific tab settings for yaml and elm
+autocmd FileType yaml,elm setlocal softtabstop=2 | setlocal shiftwidth=2
 
 " Commentary settings (actually a standard Vim setting
 " but it's used by the Commentary plugin)
