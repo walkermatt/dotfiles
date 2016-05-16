@@ -380,6 +380,9 @@ inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>$
 cnoremap <c-a> <home>
 
+" Toggle into command-line editting mode using readline 'fix-command' shortcut
+cnoremap <c-x><c-e> <c-f>
+
 " Ctrl-Delete deletes previous word
 inoremap <c-bs> <c-w>
 cnoremap <c-bs> <c-w>
