@@ -502,10 +502,13 @@ command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
 vnoremap <leader>fx :!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 nnoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 " onoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
+" Use tidy as the equalprg when the filetype is XML
+au FileType xml setlocal equalprg=tidy\ -q\ -i\ -xml\ --indent-spaces\ 4\ --wrap\ 0\ 2>/dev/null
 
 "JSON validate and pretty print
-vnoremap <leader>fj :!python -mjson.tool<cr>
-nnoremap <leader>fj :%!python -mjson.tool<cr>
+vnoremap <leader>fj :!jsonformat<cr>
+nnoremap <leader>fj :%!jsonformat<cr>
+vnoremap <leader>fjs :!jsonformat -s<cr>
 
 " URL encode and decode
 vnoremap <leader>du :!urlencode --decode<cr>
