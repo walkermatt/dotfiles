@@ -617,8 +617,9 @@ function! SaveSessionToFile(session_file)
 endfunction
 
 function! RestoreSession()
-    " if argc() == 0 && has("gui_running") && v:servername == "GVIM"
-    if argc() == 0
+    " Display the prompt if there are no files passed to vim and we're not
+    " reading from stdin (when reading from stdin &modified will be 1)
+    if argc() == 0 && &modified == 0
         let restore_session = confirm("Restore default session?", "&Yes\n&No")
         if restore_session == 1
             if filereadable(g:session_file)
