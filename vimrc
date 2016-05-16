@@ -80,6 +80,7 @@ if has("unix")
     set guifont=ubuntu\mono\ 11
     " set guifont=monaco\ 10
     " set guifont=DejaVu\ Sans\ Mono\ 9
+    " set guifont=FiraMono\ 9
 else
     set guifont=Courier_New:h9:cANSI
 end
@@ -186,13 +187,20 @@ function! ModColorScheme()
     elseif (g:colors_name =~ "jellyx")
         hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
         hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
+    elseif (g:colors_name =~ "atom-dark")
+        hi Normal guibg=#0a0a0a
+        hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
+        hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
+        hi Cursor guifg=NONE guibg=#656565 gui=NONE ctermbg=0x241
+        hi LineNr guibg=black guifg=grey ctermfg=grey ctermbg=16
+        hi VertSplit guifg=#404c41 guibg=#403c41 ctermfg=black ctermbg=black
     end
     " Highlight matched parenthesis by making them bold and red
     hi MatchParen cterm=bold ctermbg=NONE ctermfg=red guibg=NONE guifg=#a58226
 endfunction
 
-" Specify a dark background
 set background=dark
+" set background=light
 
 let g:jellybeans_background_color = "0a0a0a"
 
@@ -204,11 +212,13 @@ colorscheme jellybeans
 " colorscheme bclear
 " colorscheme github
 " colorscheme zellner
+" colorscheme atom-dark
+" colorscheme atom-dark-256
 
 " Light colorscheme for use with a projector
 command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 12 | AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 11 | AirlineTheme luna
+command! Dark set background=dark | colorscheme jellybeans | set guifont=ubuntu\mono\ 11 | AirlineTheme luna
 
 " No. of spaces for tab in file
 set tabstop=4
