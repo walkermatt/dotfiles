@@ -505,6 +505,10 @@ vnoremap <leader>fjs :!jsonformat -s<cr>
 vnoremap <leader>du :!urlencode --decode<cr>
 vnoremap <leader>eu :!urlencode<cr>
 
+" URL encode and decode
+vnoremap <leader>de :!he --decode<cr>
+vnoremap <leader>ee :!he --encode<cr>
+
 " XML escape and unescape
 vnoremap <leader>ux :!xmlescape --unescape<cr>
 vnoremap <leader>ex :!xmlescape<cr>
