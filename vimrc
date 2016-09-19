@@ -239,6 +239,8 @@ autocmd FileType upstart set commentstring=#\ %s
 autocmd FileType dosini set commentstring=#\ %s
 autocmd FileType mapfile set commentstring=#\ %s
 autocmd FileType sql set commentstring=--\ %s
+autocmd FileType dosbatch set commentstring=REM\ %s
+
 " Wean myself of the old mappings (use 'gc' 'gcc' now)
 nnoremap \\ :echo 'Try gc'<cr>
 nnoremap \\\ :echo 'Try gcc'<cr>
