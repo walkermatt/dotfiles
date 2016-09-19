@@ -641,3 +641,5 @@ augroup LargeFile
     let g:LargeFile = 1024 * 1024 * 10
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite | else | set eventignore-=FileType | endif
 augroup END
+
+command! -nargs=0 AutoMake autocmd BufWritePost <buffer> make
