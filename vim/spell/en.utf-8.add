@@ -150,3 +150,7 @@ DataShare
 TNS
 apps
 geo
+XML
+CORS
+JSONP
+geocoding
