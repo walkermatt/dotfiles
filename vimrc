@@ -200,20 +200,9 @@ function! ModColorScheme()
 endfunction
 
 set background=dark
-" set background=light
+colorscheme jellybeans
 
 let g:jellybeans_background_color = "0a0a0a"
-
-" colorscheme solarized
-" colorscheme badwolf
-" colorscheme desert
-colorscheme jellybeans
-" colorscheme jellyx
-" colorscheme bclear
-" colorscheme github
-" colorscheme zellner
-" colorscheme atom-dark
-" colorscheme atom-dark-256
 
 " Light colorscheme for use with a projector
 command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 12 | AirlineTheme light
