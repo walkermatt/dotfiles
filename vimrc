@@ -207,7 +207,7 @@ let g:jellybeans_background_color = "0a0a0a"
 " Light colorscheme for use with a projector
 command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 12 | AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=ubuntu\mono\ 11 | AirlineTheme luna
+command! Dark set background=dark | colorscheme jellybeans | set guifont=ubuntu\mono\ 11 | AirlineTheme base16
 
 " No. of spaces for tab in file
 set tabstop=4
@@ -259,7 +259,7 @@ augroup trailing
 augroup END
 
 " Store a generous history of previous commands
-set history=20000
+set history=10000
 
 " Enable mouse in normal and visual only (enabling in insert
 " is a pain in the ass when on the laptop due to catching

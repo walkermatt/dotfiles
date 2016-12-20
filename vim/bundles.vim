@@ -7,6 +7,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 Bundle 'dsolstad/vim-wombat256i.git'
 Bundle 'endel/vim-github-colorscheme.git'
 Bundle 'godlygeek/tabular.git'
