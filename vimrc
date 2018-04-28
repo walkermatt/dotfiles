@@ -76,11 +76,12 @@ set guioptions+=c
 
 " Set the font
 if has("unix")
-    " set guifont=inconsolata\ 11
-    set guifont=ubuntu\mono\ 11
+    set guifont=inconsolata\ 9
+    " set guifont=ubuntu\mono\ 11
     " set guifont=monaco\ 10
     " set guifont=DejaVu\ Sans\ Mono\ 9
     " set guifont=FiraMono\ 9
+    " set guifont=M+\ 1m\ regular
 else
     set guifont=Courier_New:h9:cANSI
 end
@@ -205,9 +206,9 @@ colorscheme jellybeans
 let g:jellybeans_background_color = "0a0a0a"
 
 " Light colorscheme for use with a projector
-command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 12 | AirlineTheme light
+command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 10 | AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=ubuntu\mono\ 11 | AirlineTheme base16
+command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 10 | AirlineTheme base16
 
 " No. of spaces for tab in file
 set tabstop=4
@@ -231,6 +232,10 @@ autocmd BufNewFile,BufRead *.cfg set filetype=dosini
 
 " Specific tab settings for yaml and elm
 autocmd FileType yaml,elm setlocal softtabstop=2 | setlocal shiftwidth=2
+
+autocmd BufReadPost * :DetectIndent
+let g:detectindent_preferred_expandtab=1
+let g:detectindent_preferred_indent=4
 
 " Commentary settings (actually a standard Vim setting
 " but it's used by the Commentary plugin)
@@ -489,6 +494,8 @@ function! OpenShell(args)
 endfunction
 command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
 
+autocmd FileType javascript setlocal equalprg=prettier\ --stdin\ --single-quote
+
 " Pretty print the selected xml fragment using the external tidy utility
 vnoremap <leader>fx :!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 nnoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
@@ -540,6 +547,8 @@ if executable('ack-grep')
   let g:unite_source_grep_default_opts = '-H --nocolor --nogroup --column --ignore-case'
   let g:unite_source_grep_recursive_opt = ''
 endif
+
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 " vim-slime
 let g:slime_no_mappings = 1
@@ -639,7 +648,7 @@ endif
 augroup LargeFile
     au!
     let g:LargeFile = 1024 * 1024 * 10
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite | else | set eventignore-=FileType | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | else | set eventignore-=FileType | endif
 augroup END
 
 command! -nargs=0 AutoMake autocmd BufWritePost <buffer> make
