@@ -1,9 +1,13 @@
 .header-bar.default-decoration {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    font-size: 0.8em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 0.9em;
 }
 
 .header-bar.default-decoration .button.titlebutton {
     padding: 0px;
+}
+
+#vim-main-window { 
+    background-color: #0a0a0a;
 }
