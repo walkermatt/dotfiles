@@ -451,7 +451,7 @@ function! OpenShell(args)
             let cmd = cmd . a:args . "; "
         end
     end
-    let cmd = cmd . "exec fish' &"
+    let cmd = cmd . "exec bash' &"
     execute cmd
 endfunction
 command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
