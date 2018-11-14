@@ -76,7 +76,7 @@ set guioptions+=c
 
 " Set the font
 if has("unix")
-    set guifont=inconsolata\ 9
+    " set guifont=inconsolata\ 9
     " set guifont=ubuntu\mono\ 11
     " set guifont=monaco\ 10
     " set guifont=DejaVu\ Sans\ Mono\ 9
@@ -131,16 +131,11 @@ command! -nargs=0 W w !sudo tee % >/dev/null
 " Make the directory and parents for the current file
 command! -complete=file -nargs=0 Mkdir !mkdir -p %:h
 
-" set shell=/bin/bash
-
 " Suppress the 'Thanks for flying Vim' message in the terminal
 let &titleold=getcwd()
 
 " Find as entering pattern
 set incsearch
-
-" Make the search non-regex by default (breaks cit, vat etc.)
-" set nomagic
 
 " Default to replacing all occurrences within the specified range
 set gdefault
@@ -167,16 +162,7 @@ set showbreak=↪
 au ColorScheme * call ModColorScheme()
 
 function! ModColorScheme()
-    if (g:colors_name =~ "desert")
-        " Background of no text the same as std background
-        hi NonText guifg=grey60 guibg=grey20
-    elseif (g:colors_name =~ "solarized")
-        "hi Normal guibg=#242424
-    elseif (g:colors_name =~ "badwolf")
-        " More subtle search highlight
-        hi Search ctermbg=DarkYellow guibg=#F8DE7E
-        hi LineNr ctermfg=grey ctermbg=black guibg=black guifg=grey
-    elseif (g:colors_name =~ "jellybeans")
+    if (g:colors_name =~ "jellybeans")
         " More obvious search highlight, cursor and line numbers
         hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
         hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
@@ -185,30 +171,19 @@ function! ModColorScheme()
         hi VertSplit guifg=#404c41 guibg=#403c41 ctermfg=black ctermbg=black
         " Remove the background of listchar characters
         hi SpecialKey guibg=NONE gui=NONE
-    elseif (g:colors_name =~ "jellyx")
-        hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
-        hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
-    elseif (g:colors_name =~ "atom-dark")
-        hi Normal guibg=#0a0a0a
-        hi Search guifg=black guibg=#F8DE7E ctermfg=16 ctermbg=187
-        hi IncSearch guifg=#0a9dff guibg=#000000 ctermfg=blue ctermbg=black
-        hi Cursor guifg=NONE guibg=#656565 gui=NONE ctermbg=0x241
-        hi LineNr guibg=black guifg=grey ctermfg=grey ctermbg=16
-        hi VertSplit guifg=#404c41 guibg=#403c41 ctermfg=black ctermbg=black
     end
     " Highlight matched parenthesis by making them bold and red
     hi MatchParen cterm=bold ctermbg=NONE ctermfg=red guibg=NONE guifg=#a58226
 endfunction
 
-set background=dark
-colorscheme jellybeans
-
 let g:jellybeans_background_color = "0a0a0a"
 
 " Light colorscheme for use with a projector
-command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 10 | AirlineTheme light
+command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 10 | :AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 10 | AirlineTheme base16
+command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 9 | :AirlineTheme dark
+
+autocmd VimEnter * :Dark
 
 " No. of spaces for tab in file
 set tabstop=4
@@ -229,13 +204,10 @@ autocmd BufNewFile,BufRead *.gml set filetype=xml
 autocmd BufNewFile,BufRead *.qgs set filetype=xml
 autocmd BufNewFile,BufRead *.config set filetype=dosini
 autocmd BufNewFile,BufRead *.cfg set filetype=dosini
+autocmd BufNewFile,BufRead *.geojson set filetype=json
 
 " Specific tab settings for yaml and elm
 autocmd FileType yaml,elm setlocal softtabstop=2 | setlocal shiftwidth=2
-
-autocmd BufReadPost * :DetectIndent
-let g:detectindent_preferred_expandtab=1
-let g:detectindent_preferred_indent=4
 
 " Commentary settings (actually a standard Vim setting
 " but it's used by the Commentary plugin)
@@ -245,10 +217,6 @@ autocmd FileType dosini set commentstring=#\ %s
 autocmd FileType mapfile set commentstring=#\ %s
 autocmd FileType sql set commentstring=--\ %s
 autocmd FileType dosbatch set commentstring=REM\ %s
-
-" Wean myself of the old mappings (use 'gc' 'gcc' now)
-nnoremap \\ :echo 'Try gc'<cr>
-nnoremap \\\ :echo 'Try gcc'<cr>
 
 " Default to not showing line endings and tabs but display nice
 " characters when we do with 'set list'
@@ -375,6 +343,9 @@ vnoremap s s
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>$
 cnoremap <c-a> <home>
+" Copied from rsi-vim, allow access to Vim's built-in |c_CTRL-A| (complete all
+" matches)
+cnoremap <c-x><c-a> <c-a>
 
 " Toggle into command-line editting mode using readline 'fix-command' shortcut
 cnoremap <c-x><c-e> <c-f>
@@ -388,24 +359,15 @@ noremap <F1> <esc>
 
 " Pressing F2 will toggle paste mode that allows you to paste text and preserve indentation
 set pastetoggle=<F2>
-"
-" Python pep8 options
-let g:pep8_map='<F6>'
 
 " Clear search highlighting, spelling and command line
 nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
-
-" Toggle spell check with F7
-noremap <F7> :set spell!<cr>
 
 " Enable spell check when using next spell command
 nnoremap z= :set spell<cr>z=
 vnoremap z= :set spell<cr>z=
 nnoremap ]s :set spell<cr>]s
 nnoremap [s :set spell<cr>[s
-
-" Toggle TagBar
-noremap <F10> :TagbarToggle<cr>
 
 " Goyo settings
 let g:goyo_width = 120
@@ -489,19 +451,21 @@ function! OpenShell(args)
             let cmd = cmd . a:args . "; "
         end
     end
-    let cmd = cmd . "exec bash' &"
+    let cmd = cmd . "exec fish' &"
     execute cmd
 endfunction
 command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
 
-autocmd FileType javascript setlocal equalprg=prettier\ --stdin\ --single-quote
+au FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote
+au FileType css setlocal formatprg=prettier\ --parser=css\ --stdin\ --single-quote
+au FileType python setlocal formatprg=autopep8\ -aaa\ --experimental\ -
 
 " Pretty print the selected xml fragment using the external tidy utility
 vnoremap <leader>fx :!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 nnoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 " onoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
-" Use tidy as the equalprg when the filetype is XML
-au FileType xml setlocal equalprg=tidy\ -q\ -i\ -xml\ --indent-spaces\ 4\ --wrap\ 0\ 2>/dev/null
+" Use tidy as the formatprg when the filetype is XML
+au FileType xml setlocal formatprg=tidy\ -q\ -i\ -xml\ --indent-spaces\ 4\ --wrap\ 0\ 2>/dev/null
 
 "JSON validate and pretty print
 vnoremap <leader>fj :!jsonformat<cr>
@@ -520,34 +484,6 @@ vnoremap <leader>ee :!he --encode<cr>
 vnoremap <leader>ux :!xmlescape --unescape<cr>
 vnoremap <leader>ex :!xmlescape<cr>
 
-" Unite
-let g:unite_data_directory = expand("~/.cache/unite")
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-nnoremap <silent> <a-s> :Unite -no-split -buffer-name=buffer buffer<cr>
-nnoremap <silent> <leader>lb :Unite -no-split -buffer-name=buffer -start-insert buffer<cr>
-nnoremap <silent> <leader>lr :UniteWithBufferDir -no-split -buffer-name=file -start-insert file<cr>
-nnoremap <silent> <leader>lm :Unite -no-split -buffer-name=file -start-insert file_mru<cr>
-nnoremap <leader>a :Unite -no-quit -buffer-name=grep grep:<cr>
-nnoremap <leader>f :Unite -no-quit -buffer-name=grep find:<cr>
-
-" Alternative file (avoiding issues when alt file has been closed)
-nnoremap <silent> <a-a> :Unite -no-split -buffer-name=buffer -quick-match buffer<cr>a
-" nnoremap <silent> <a-a> <c-^>
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-    map <buffer> <ESC> <Plug>(unite_all_exit)
-endfunction
-
-" For ack.
-if executable('ack-grep')
-  let g:unite_source_grep_command = 'ack-grep'
-  let g:unite_source_grep_default_opts = '-H --nocolor --nogroup --column --ignore-case'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 " vim-slime
@@ -563,21 +499,7 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'luna'
-" let g:airline_theme = 'light'
-
-let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': ['python'],
-                           \ 'passive_filetypes': [] }
-
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args='--ignore=E501'
-
-" Use the awesome python auto complete function
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-" Software capslock
-imap <C-L> <Plug>CapsLockToggle
+let g:airline_theme = 'distinguished'
 
 " Status line
 set laststatus=2
@@ -620,10 +542,13 @@ function! SaveSessionToFile(session_file)
     execute 'mksession! ' . a:session_file
 endfunction
 
+let g:reading_from_stdin = 0
+autocmd StdinReadPost * let g:reading_from_stdin = 1
+
 function! RestoreSession()
     " Display the prompt if there are no files passed to vim and we're not
     " reading from stdin (when reading from stdin &modified will be 1)
-    if argc() == 0 && &modified == 0
+    if argc() == 0 && g:reading_from_stdin == 0
         let restore_session = confirm("Restore default session?", "&Yes\n&No")
         if restore_session == 1
             if filereadable(g:session_file)
