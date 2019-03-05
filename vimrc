@@ -134,6 +134,9 @@ command! -complete=file -nargs=0 Mkdir !mkdir -p %:h
 " Suppress the 'Thanks for flying Vim' message in the terminal
 let &titleold=getcwd()
 
+" Display file sizes as human readable in netrw
+let g:netrw_sizestyle="h"
+
 " Find as entering pattern
 set incsearch
 
@@ -181,7 +184,7 @@ let g:jellybeans_background_color = "0a0a0a"
 " Light colorscheme for use with a projector
 command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 10 | :AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 9 | :AirlineTheme dark
+command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 9 | :AirlineTheme solarized_flood
 
 autocmd VimEnter * :Dark
 
