@@ -1,3 +1,4 @@
+set noswapfile
 set encoding=utf-8
 set ruler
 set showmode
@@ -33,6 +34,7 @@ set expandtab
 set smarttab
 map <space> <leader>
 nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
+nnoremap - :e.<cr>
 " Status line
 set laststatus=2
 set statusline=%f    " Path.
