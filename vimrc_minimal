@@ -35,6 +35,11 @@ set smarttab
 map <space> <leader>
 nnoremap <leader><space> :noh<cr>:set nospell<cr>:echo ""<cr>
 nnoremap - :e.<cr>
+" Easy window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " Status line
 set laststatus=2
 set statusline=%f    " Path.
