@@ -182,9 +182,9 @@ endfunction
 let g:jellybeans_background_color = "0a0a0a"
 
 " Light colorscheme for use with a projector
-command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 10 | :AirlineTheme light
+command! Light set background=light | colorscheme bclear | set guifont=inconsolata\ 11 | :AirlineTheme light
 " Back to black
-command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 9 | :AirlineTheme solarized_flood
+command! Dark set background=dark | colorscheme jellybeans | set guifont=inconsolata\ 11 | :AirlineTheme solarized_flood
 
 autocmd VimEnter * :Dark
 
@@ -208,6 +208,7 @@ autocmd BufNewFile,BufRead *.qgs set filetype=xml
 autocmd BufNewFile,BufRead *.config set filetype=dosini
 autocmd BufNewFile,BufRead *.cfg set filetype=dosini
 autocmd BufNewFile,BufRead *.geojson set filetype=json
+autocmd BufNewFile,BufRead *.svelte set ft=html
 
 " Specific tab settings for yaml and elm
 autocmd FileType yaml,elm setlocal softtabstop=2 | setlocal shiftwidth=2
@@ -459,7 +460,7 @@ function! OpenShell(args)
 endfunction
 command! -complete=shellcmd -nargs=* Sh silent call OpenShell(<q-args>)
 
-au FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote
+au FileType javascript setlocal formatprg=prettier\ --parser=babel\ --single-quote
 au FileType css setlocal formatprg=prettier\ --parser=css\ --stdin\ --single-quote
 au FileType python setlocal formatprg=autopep8\ -aaa\ --experimental\ -
 
@@ -470,7 +471,7 @@ nnoremap <leader>fx :%!tidy -q -i -xml --indent-spaces 4 --wrap 0<CR>
 " Use tidy as the formatprg when the filetype is XML
 au FileType xml setlocal formatprg=tidy\ -q\ -i\ -xml\ --indent-spaces\ 4\ --wrap\ 0\ 2>/dev/null
 
-"JSON validate and pretty print
+" JSON validate and pretty print
 vnoremap <leader>fj :!jsonformat<cr>
 nnoremap <leader>fj :%!jsonformat<cr>
 vnoremap <leader>fjs :!jsonformat -s<cr>
@@ -479,7 +480,7 @@ vnoremap <leader>fjs :!jsonformat -s<cr>
 vnoremap <leader>du :!urlencode --decode<cr>
 vnoremap <leader>eu :!urlencode<cr>
 
-" URL encode and decode
+" HTML entity encode and decode
 vnoremap <leader>de :!he --decode<cr>
 vnoremap <leader>ee :!he --encode<cr>
 
@@ -520,9 +521,6 @@ set statusline+=/
 set statusline+=%{&ft} " Type (python).
 set statusline+=)
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
-
-" When encrypting a file use blowfish
-set cryptmethod=blowfish
 
 " Name of default vim session, glob expands the path
 let g:session_file = glob('~/') . 'session.vim'
@@ -580,3 +578,7 @@ augroup LargeFile
 augroup END
 
 command! -nargs=0 AutoMake autocmd BufWritePost <buffer> make
+
+" When encrypting a file use blowfish
+set cryptmethod=blowfish
+
