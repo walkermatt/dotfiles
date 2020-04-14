@@ -11,3 +11,8 @@
 #vim-main-window { 
     background-color: #0a0a0a;
 }
+
+.scrollbar.vertical slider,
+scrollbar.vertical slider {
+  min-width: 15px;
+}
